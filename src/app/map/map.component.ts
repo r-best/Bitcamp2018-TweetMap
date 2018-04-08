@@ -62,7 +62,6 @@ export class MapComponent implements OnInit {
     this.loading = true;
     this.twitter.getData(query).then(
       res => {
-        console.log(res)
         if(res === -1){
           this.toast.showToast(`alert-danger`, `An error occurred`);
           this.loading = false;
