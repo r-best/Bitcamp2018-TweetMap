@@ -7,8 +7,8 @@
         </div>
         <div class="row">
             <div class="col">
-                <input type="text" #input/>
-                <button type="submit" class="btn-sm btn-primary" (click)="addLayer(input.value);input.value=''" [disabled]="loading">Submit</button>
+                <input type="text" #input id="input" (keydown)="$event.keyCode === 13 ? submit(input.value) : return"/>
+                <button type="submit" class="btn-sm btn-primary" (click)="submit(input.value)" [disabled]="loading">Submit</button>
                 <i class="fa fa-spinner fa-spin" [style.visibility]="loading ? 'visible' : 'hidden'"></i>
             </div>
         </div>

@@ -139,4 +139,9 @@ export class MapComponent implements OnInit {
     }
     return color;
   }
+
+  submit(value: string){
+    document.getElementById(`input`).value='';
+    this.addLayer(value);
+  }
 }
