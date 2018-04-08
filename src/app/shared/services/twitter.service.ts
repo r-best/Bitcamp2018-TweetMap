@@ -13,10 +13,20 @@ export class TwitterService {
     .then(
       res => {
         console.log(res.json())
-        return res.json()
+        return res.json().map(item => { return {
+          geometry: {
+            type: "point",
+            longitude: item[`longitude`],
+            latitude: item[`latitude`]
+          },
+          attributes: {
+            ObjectID: 1,
+            size: 50
+          }
+        }})
       },
-      err => {console.log(err); return {}}
-    ).catch(err => {console.log(err); return {}});
+      err => err
+    ).catch(err => err);
   }
 
 }

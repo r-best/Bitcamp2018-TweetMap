@@ -8,7 +8,8 @@ import { AppComponent } from './app.component';
 import { MapComponent } from './map/map.component';
 
 import { TwitterService } from './shared/services/twitter.service'
-import { ToastService } from './shared/services/toast.service'
+import { ToastService } from './shared/services/toast.service';
+import { KeysPipe } from './shared/pipes/keys.pipe'
 
 const routes: Route[] = [
   { path: ``, redirectTo: `/home`, pathMatch: `full` },
@@ -18,7 +19,8 @@ const routes: Route[] = [
 @NgModule({
   declarations: [
     AppComponent,
-    MapComponent
+    MapComponent,
+    KeysPipe
   ],
   imports: [
     BrowserModule,

@@ -18,9 +18,10 @@ def authenticate():
 def getData(query):
     coords = []
     try:
-        for tweet in tweepy.Cursor(authenticate().search, q=query, count=100).items(2000):
-            if tweet.place is not None:
-                coords.append(tweet.place.full_name)
+        for tweet in tweepy.Cursor(authenticate().search, q=query, count=100).items(1000):
+            if tweet.coordinates is not None:
+                coord = tweet.coordinates['coordinates']
+                coords.append({"longitude": coord[0], "latitude": coord[1]})
         return json.dumps(coords)
     except tweepy.RateLimitError:
         return json.dumps("Whoops, rate limit exceeded!")
