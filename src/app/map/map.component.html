@@ -1,0 +1,18 @@
+<div class="row">
+    <div class="col-4">
+        <div class="row">
+            <div class="col-12">
+                <input type="text" #input/>
+                <button type="submit" class="btn-sm btn-primary" (click)="addLayer(input.value)">Submit</button>
+            </div>
+        </div>
+        <div class="row">
+            <div *ngFor="let layer of layers; let i = index">
+                {{i}}
+            </div>
+        </div>
+    </div>
+    <div class="col-8">
+        <div #mapViewNode></div>
+    </div>
+</div>

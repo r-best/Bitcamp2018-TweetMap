@@ -9,5 +9,6 @@
   "exclude": [
     "test.ts",
     "**/*.spec.ts"
-  ]
+  ],
+  "types": ["arcgis-js-api"]
 }
