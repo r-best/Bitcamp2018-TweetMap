@@ -16,6 +16,7 @@ def authenticate():
 
 @app.route('/data/<query>')
 def getData(query):
+    query.replace("[HASH]", "#")
     coords = []
     try:
         for tweet in tweepy.Cursor(authenticate().search, q=query, count=100).items(1500):

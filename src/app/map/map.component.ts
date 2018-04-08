@@ -69,7 +69,7 @@ export class MapComponent implements OnInit {
           return;
         }
         if(res.length === 0){
-          this.toast.showToast(`alert-warn`, `No tweets found for query '${query}'`);
+          this.toast.showToast(`alert-warning`, `No tweets found for query '${query}'`);
           this.loading = false;
           return;
         }

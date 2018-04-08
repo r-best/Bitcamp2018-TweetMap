@@ -9,6 +9,7 @@ export class TwitterService {
   constructor(private http: Http) {}
 
   getData(query: string){
+    query = query.replace(/#/, `[HASH]`);
     return this.http.get(`${this.API_URL}/data/${query}`).toPromise()
     .then(
       res => {
