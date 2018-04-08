@@ -15,6 +15,8 @@ export class MapComponent implements OnInit {
   map: esri.Map;
   layers: { [query: string]: {} };
 
+  loading: boolean;
+
   @Output() mapLoaded = new EventEmitter<boolean>();
   @ViewChild('mapViewNode') private mapViewEl: ElementRef;
 
@@ -22,6 +24,7 @@ export class MapComponent implements OnInit {
 
   public ngOnInit() {
     this.layers = {};
+    this.loading = false;
     loadModules([
       'esri/Map',
       "esri/views/SceneView",
@@ -56,9 +59,20 @@ export class MapComponent implements OnInit {
       this.toast.showToast(`alert-info`, `This query is already on the map`);
       return;
     }
+    this.loading = true;
     this.twitter.getData(query).then(
       res => {
         console.log(res)
+        if(res === -1){
+          this.toast.showToast(`alert-danger`, `An error occurred`);
+          this.loading = false;
+          return;
+        }
+        if(res.length === 0){
+          this.toast.showToast(`alert-warn`, `No tweets found for query '${query}'`);
+          this.loading = false;
+          return;
+        }
         loadModules(["esri/layers/FeatureLayer"]).then(([FeatureLayer]) => {
           let color = this._genRandomColor();
           let outline = this._genRandomColor();
@@ -100,6 +114,8 @@ export class MapComponent implements OnInit {
             color: color
           };
           this.map.add(this.layers[query][`layer`]);
+          this.loading = false;
+          this.toast.showToast(`alert-info`, `Query '${query}' added to map`)
         });
       },
       err => this.toast.showToast(`alert-danger`, err)
@@ -109,6 +125,11 @@ export class MapComponent implements OnInit {
   removeLayer(name: string){
     this.map.remove(this.layers[name][`layer`]);
     delete this.layers[name];
+  }
+
+  removeAllLayers(){
+    this.layers = {};
+    this.map.removeAll();
   }
 
   _genRandomColor(): string{

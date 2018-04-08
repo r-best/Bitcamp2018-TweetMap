@@ -1,10 +1,10 @@
-<!-- <div class="container" style="width:100%"> -->
 <div class="row">
     <div class="col-4 pt-3 mt-3 pl-4">
         <div class="row">
             <div class="col">
                 <input type="text" #input/>
-                <button type="submit" class="btn-sm btn-primary" (click)="addLayer(input.value)">Submit</button>
+                <button type="submit" class="btn-sm btn-primary" (click)="addLayer(input.value);input.value=''" [disabled]="loading">Submit</button>
+                <i class="fa fa-spinner fa-spin" [style.visibility]="loading ? 'visible' : 'hidden'"></i>
             </div>
         </div>
         <div class="row">
@@ -13,12 +13,15 @@
                 <h4>Active Layers:</h4>
             </div>
         </div>
+        <div class="row">
+            <div class="col">
+                <button class="btn-sm btn-primary" (click)="removeAllLayers()">Remove All</button>
+            </div>
+        </div>
         <div class="row" *ngFor="let layer of (layers | keys); let i = index">
-            <!-- <div class="col-2"> -->
-            <!-- </div> -->
             <div class="col" [ngStyle]="{color:layers[layer]['color']}">
-                    <button class="btn-sm btn-primary" (click)="removeLayer(layer)">-</button>
-                {{layer}}
+                <button class="btn-sm btn-primary" (click)="removeLayer(layer)">-</button>
+                {{layer}} ({{layers[layer]['layer'].source.length}})
             </div>
         </div>
     </div>
@@ -26,4 +29,3 @@
         <div #mapViewNode></div>
     </div>
 </div>
-<!-- </div> -->

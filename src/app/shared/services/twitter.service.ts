@@ -25,8 +25,8 @@ export class TwitterService {
           }
         }})
       },
-      err => err
-    ).catch(err => err);
+      err => {console.log(err); return -1}
+    ).catch(err => {console.log(err); return -1});
   }
 
 }
